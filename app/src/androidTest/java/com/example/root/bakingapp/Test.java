@@ -54,7 +54,6 @@ public class Test {
         onView(withRecyclerView(R.id.recipesList).atPositionOnView(0, R.id.recipe_servings))
                 .check(matches(withText("8")));
 
-//        //Make click on item , at example at position 1 "Brownies"
         onView(ViewMatchers.withId(R.id.recipesList))
                 .perform(RecyclerViewActions.actionOnItemAtPosition(0,
                         click()));
