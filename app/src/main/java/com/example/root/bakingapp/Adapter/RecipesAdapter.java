@@ -41,10 +41,14 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.Recycler
 
         holder.recipeName.setText(recipes.get(position).getName());
         holder.recipeStepsCount.setText("" + recipes.get(position).getSteps().size());
+        holder.recipeServe.setText(""+ recipes.get(position).getServings().toString());
+        if (recipes.get(position).getImage()!=""&&!recipes.get(position).getImage().isEmpty())
+        {
 
-        Glide.with(context)
-                .load(recipes.get(position).getImage())
-                .into(holder.recipeImage);
+            Glide.with(context)
+                    .load(recipes.get(position).getImage())
+                    .into(holder.recipeImage);
+        }
 
     }
 

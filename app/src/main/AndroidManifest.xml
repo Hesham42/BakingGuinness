@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.root.bakingapp">
+
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -10,15 +11,44 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Activity.MainActivity">
+        <activity android:name=".Activity.MainActivity"
+            android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activity.RecipeDetailsActivity" />
-        <activity android:name=".Activity.StepDetailsActivity"></activity>
+        <activity android:name=".Activity.RecipeDetailsActivity"
+            android:launchMode="singleTask"
+            android:parentActivityName=".Activity.MainActivity"
+            />
+        <activity android:name=".Activity.StepDetailsActivity"
+            android:launchMode="singleTask"
+            android:parentActivityName=".Activity.MainActivity"/>
+
+        <receiver android:name=".widget.RecipeWidget">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/recipe_widget_info" />
+        </receiver>
+
+        <activity android:name=".widget.RecipeWidgetConfigureActivity"
+            android:label="@string/widget_configueration">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
+            </intent-filter>
+        </activity>
+
+        <service
+            android:name=".widget.WidgetService"
+            android:permission="android.permission.BIND_REMOTEVIEWS" />
     </application>
+
+
 
 </manifest>
