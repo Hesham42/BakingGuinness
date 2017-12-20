@@ -29,9 +29,9 @@ import static android.support.test.espresso.matcher.ViewMatchers.withText;
 public class Test {
 
     @Rule
-    public ActivityTestRule<com.example.root.bakingapp.Activity.MainActivity>
+    public ActivityTestRule< com.example.root.bakingapp.Activity.MainActivity>
             mActivityRule=
-            new ActivityTestRule(com.example.root.bakingapp.Activity.MainActivity.class);
+            new ActivityTestRule<MainActivity>(com.example.root.bakingapp.Activity.MainActivity.class);
 
 
     private CountingIdlingResource mIdlingResource;
@@ -47,16 +47,16 @@ public class Test {
     public void testingRecyclerView() {
 
         //Checking that first item retrieved correctly
-        onView(withRecyclerView(R.id.recipesList).atPositionOnView(1, R.id.recipe_steps_count))
-                .check(matches(withText("10")));
-        onView(withRecyclerView(R.id.recipesList).atPositionOnView(1, R.id.recipe_name))
-                .check(matches(withText("Brownies")));
-        onView(withRecyclerView(R.id.recipesList).atPositionOnView(1, R.id.recipe_servings))
+        onView(withRecyclerView(R.id.recipesList).atPositionOnView(0, R.id.recipe_steps_count))
+                .check(matches(withText("7")));
+        onView(withRecyclerView(R.id.recipesList).atPositionOnView(0, R.id.recipe_name))
+                .check(matches(withText("Nutella Pie")));
+        onView(withRecyclerView(R.id.recipesList).atPositionOnView(0, R.id.recipe_servings))
                 .check(matches(withText("8")));
 
-        //Make click on item , at example at position 1 "Brownies"
+//        //Make click on item , at example at position 1 "Brownies"
         onView(ViewMatchers.withId(R.id.recipesList))
-                .perform(RecyclerViewActions.actionOnItemAtPosition(1,
+                .perform(RecyclerViewActions.actionOnItemAtPosition(0,
                         click()));
 
         onView(withId(R.id.ingredientList)).check(matches(isDisplayed()));
@@ -64,7 +64,7 @@ public class Test {
 
 
         onView(ViewMatchers.withId(R.id.stepsList))
-                .perform(RecyclerViewActions.actionOnItemAtPosition(1,
+                .perform(RecyclerViewActions.actionOnItemAtPosition(0,
                         click()));
         onView(withId(R.id.description)).check(matches(isDisplayed()));
 //
