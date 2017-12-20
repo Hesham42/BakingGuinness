@@ -43,8 +43,8 @@ public class MainActivity extends AppCompatActivity implements Comm {
     Button reload;
     int position;
 
-    private CountingIdlingResource mIdlingResource = new CountingIdlingResource("Loading_Data");
-
+    private CountingIdlingResource mIdlingResource =
+            new CountingIdlingResource("Loading_Data");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -128,9 +128,9 @@ public class MainActivity extends AppCompatActivity implements Comm {
     protected void onSaveInstanceState(Bundle outState) {
         outState.putParcelableArrayList(getResources().getString(R.string.recipes), recipes);
         if (recyclerView.getTag().equals("tablet")) {
-//            outState.putInt(getResources().getString(R.string.position), ((GridLayoutManager) recyclerView.getLayoutManager()).findFirstCompletelyVisibleItemPosition());
+            outState.putInt(getResources().getString(R.string.position), ((GridLayoutManager) recyclerView.getLayoutManager()).findFirstCompletelyVisibleItemPosition());
         } else {
-//            outState.putInt(getResources().getString(R.string.position), ((LinearLayoutManager) recyclerView.getLayoutManager()).findFirstCompletelyVisibleItemPosition());
+            outState.putInt(getResources().getString(R.string.position), ((LinearLayoutManager) recyclerView.getLayoutManager()).findFirstCompletelyVisibleItemPosition());
         }
         super.onSaveInstanceState(outState);
     }

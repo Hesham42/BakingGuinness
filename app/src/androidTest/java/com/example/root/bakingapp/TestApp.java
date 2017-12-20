@@ -26,12 +26,12 @@ import static android.support.test.espresso.matcher.ViewMatchers.withText;
  * Created by root on 12/20/17.
  */
 @RunWith(AndroidJUnit4.class)
-public class Test {
+public class TestApp {
 
     @Rule
     public ActivityTestRule< com.example.root.bakingapp.Activity.MainActivity>
             mActivityRule=
-            new ActivityTestRule<MainActivity>(com.example.root.bakingapp.Activity.MainActivity.class);
+            new ActivityTestRule<>(com.example.root.bakingapp.Activity.MainActivity.class);
 
 
     private CountingIdlingResource mIdlingResource;
@@ -43,7 +43,6 @@ public class Test {
         Espresso.registerIdlingResources(mIdlingResource);
     }
 
-    @org.junit.Test
     public void testingRecyclerView() {
 
         //Checking that first item retrieved correctly
