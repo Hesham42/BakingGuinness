@@ -1,19 +1,17 @@
-package com.example.root.bakingapp;
+package com.example.root.bakingapp.Activity;
 
 import android.support.test.espresso.Espresso;
+import android.support.test.espresso.contrib.RecyclerViewActions;
 import android.support.test.espresso.idling.CountingIdlingResource;
 import android.support.test.espresso.matcher.ViewMatchers;
 import android.support.test.rule.ActivityTestRule;
-import android.support.test.runner.AndroidJUnit4;
-import android.support.test.espresso.contrib.RecyclerViewActions;
 
-
-import com.example.root.bakingapp.Activity.MainActivity;
+import com.example.root.bakingapp.R;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
-import org.junit.runner.RunWith;
+import org.junit.Test;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
@@ -23,15 +21,12 @@ import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 
 /**
- * Created by root on 12/20/17.
+ * Created by root on 12/21/17.
  */
-@RunWith(AndroidJUnit4.class)
-public class TestApp {
+public class MainActivityTest {
 
     @Rule
-    public ActivityTestRule< com.example.root.bakingapp.Activity.MainActivity>
-            mActivityRule=
-            new ActivityTestRule<>(com.example.root.bakingapp.Activity.MainActivity.class);
+    public ActivityTestRule<MainActivity> mActivityRule =new ActivityTestRule<MainActivity>(MainActivity.class);
 
 
     private CountingIdlingResource mIdlingResource;
@@ -43,18 +38,20 @@ public class TestApp {
         Espresso.registerIdlingResources(mIdlingResource);
     }
 
-    public void testingRecyclerView() {
-
-        //Checking that first item retrieved correctly
+    @Test
+    public void testingRecyclerView() throws InterruptedException {
+//          Checking that first item retrieved correctly
         onView(withRecyclerView(R.id.recipesList).atPositionOnView(0, R.id.recipe_steps_count))
-                .check(matches(withText("7")));
-        onView(withRecyclerView(R.id.recipesList).atPositionOnView(0, R.id.recipe_name))
+                .check(matches(withText("8")));
+//
+        onView(withRecyclerView(R.id.recipesList).atPositionOnView(1, R.id.recipe_name))
                 .check(matches(withText("Nutella Pie")));
         onView(withRecyclerView(R.id.recipesList).atPositionOnView(0, R.id.recipe_servings))
-                .check(matches(withText("8")));
-
+                .check(matches(withText("7")));
+//
+//        Make click on item , at example at position 1 "Brownies"
         onView(ViewMatchers.withId(R.id.recipesList))
-                .perform(RecyclerViewActions.actionOnItemAtPosition(0,
+                .perform(RecyclerViewActions.actionOnItemAtPosition(1,
                         click()));
 
         onView(withId(R.id.ingredientList)).check(matches(isDisplayed()));
@@ -66,7 +63,7 @@ public class TestApp {
                         click()));
         onView(withId(R.id.description)).check(matches(isDisplayed()));
 //
-
+//
     }
 
     public static RecyclerViewMatcher withRecyclerView(final int recyclerViewId) {

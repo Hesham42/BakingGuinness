@@ -1,4 +1,4 @@
-package com.example.root.bakingapp;
+package com.example.root.bakingapp.Activity;
 
 import android.content.res.Resources;
 import android.support.v7.widget.RecyclerView;

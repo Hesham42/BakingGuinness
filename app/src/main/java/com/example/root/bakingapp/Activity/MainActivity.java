@@ -28,6 +28,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import retrofit2.Response;
 
 import static android.view.View.GONE;
@@ -41,17 +42,17 @@ public class MainActivity extends AppCompatActivity implements Comm {
     ProgressBar progressbar;
     @BindView(R.id.reload)
     Button reload;
-    int position;
 
-    private CountingIdlingResource mIdlingResource =
-            new CountingIdlingResource("Loading_Data");
+    int position=0;
+
+    private CountingIdlingResource mIdlingResource = new CountingIdlingResource("Loading_Data");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-
+        mIdlingResource.increment();
         if (savedInstanceState == null) {
             mIdlingResource.increment();
             Client.getRecipes(this);
@@ -101,7 +102,7 @@ public class MainActivity extends AppCompatActivity implements Comm {
 
         renderRecyclerView();
 
-        mIdlingResource.decrement();
+
     }
 
     public void renderRecyclerView() {
@@ -114,8 +115,9 @@ public class MainActivity extends AppCompatActivity implements Comm {
         }
         recyclerView.setAdapter(new RecipesAdapter(MainActivity.this, recipes));
         recyclerView.getLayoutManager().scrollToPosition(position);
-    }
+        mIdlingResource.decrement();
 
+    }
 
     public void reload(View view) {
         progressbar.setVisibility(View.VISIBLE);
@@ -130,7 +132,8 @@ public class MainActivity extends AppCompatActivity implements Comm {
         if (recyclerView.getTag().equals("tablet")) {
             outState.putInt(getResources().getString(R.string.position), ((GridLayoutManager) recyclerView.getLayoutManager()).findFirstCompletelyVisibleItemPosition());
         } else {
-            outState.putInt(getResources().getString(R.string.position), ((LinearLayoutManager) recyclerView.getLayoutManager()).findFirstCompletelyVisibleItemPosition());
+            outState.putInt(getResources().getString(R.string.position), ((LinearLayoutManager) recyclerView.getLayoutManager())
+                    .findFirstCompletelyVisibleItemPosition());
         }
         super.onSaveInstanceState(outState);
     }
